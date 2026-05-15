@@ -1,268 +1,340 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgroinPeru S.A.C.</title>
+    <title>AgroinPeru S.A.C. - Sistemas de Riego</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (Iconos) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tu CSS Personalizado -->
     <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
-    <!-- HEADER -->
-    <header class="hero">
-        <nav class="navbar">
-            <div class="logo">AgroinPeru S.A.C.</div>
-            <ul class="menu">
-                <li>Inicio</li>
-                <li>Productos</li>
-                <li>Contacto</li>
-            </ul>
-            <a href="login.html">
-                <button class="btn-admin">Acceso Admin</button>
-            </a>
-        </nav>
-        <div class="hero-content">
-            <span class="tag">FERRETERÍA ESPECIALIZADA EN RIEGO</span>
-            <h1>
-                Sistemas de <span>Riego</span><br>
-                para el Agro Peruano
-            </h1>
-            <p>
-                Más de 15 años suministrando tuberías, válvulas, aspersores y
-                goteros de alta calidad para la agricultura moderna del Perú.
-            </p>
-            <div class="buttons">
-                <button class="btn-primary">Explorar Catálogo</button>
-                <button class="btn-outline">Contáctanos</button>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand logo fw-bold" href="#">AgroinPeru S.A.C.</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-2 gap-lg-3 py-3 py-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a href="login.html" class="btn btn-outline-light rounded-pill px-4 btn-admin-nav">Acceso Admin</a>
+                    </li>
+                </ul>
             </div>
-            <div class="stats">
-                <div><strong>15+</strong><br><span>Años de experiencia</span></div>
-                <div><strong>500+</strong><br><span>Productos disponibles</span></div>
-                <div><strong>98%</strong><br><span>Clientes satisfechos</span></div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-7 col-lg-9 hero-content">
+                    <span class="tag mb-3">FERRETERÍA ESPECIALIZADA EN RIEGO</span>
+                    <h1 class="display-4 fw-bold text-white mb-3">
+                        Sistemas de <span class="text-success-custom">Riego</span><br>
+                        para el Agro Peruano
+                    </h1>
+                    <p class="lead text-light mb-4">
+                        Más de 15 años suministrando tuberías, válvulas, aspersores y goteros de alta calidad para la agricultura moderna del Perú.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 mb-5">
+                        <button class="btn btn-success-custom text-white btn-lg rounded-pill px-4 fs-6">Explorar Catálogo</button>
+                        <button class="btn btn-outline-light btn-lg rounded-pill px-4 fs-6">Contáctanos</button>
+                    </div>
+                    <div class="row g-4 stats text-white pt-4 border-top border-secondary-subtle">
+                        <div class="col-4">
+                            <strong class="d-block text-success-custom fs-2 fw-bold">15+</strong>
+                            <span class="small text-secondary-custom">Años de experiencia</span>
+                        </div>
+                        <div class="col-4">
+                            <strong class="d-block text-success-custom fs-2 fw-bold">500+</strong>
+                            <span class="small text-secondary-custom">Productos</span>
+                        </div>
+                        <div class="col-4">
+                            <strong class="d-block text-success-custom fs-2 fw-bold">98%</strong>
+                            <span class="small text-secondary-custom">Satisfechos</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
+
     <!-- CATEGORÍAS -->
-    <section class="categorias">
-        <h2>Nuestras Categorías</h2>
-        <div class="cat-grid">
-            <div class="cat">Tuberías</div>
-            <div class="cat">Válvulas</div>
-            <div class="cat">Aspersores</div>
-            <div class="cat">Goteros</div>
-            <div class="cat">Accesorios</div>
-            <div class="cat">Bombas</div>
-            <div class="cat">Fertilizantes</div>
+    <section class="categorias py-5 bg-light-custom text-dark">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-4">Nuestras Categorías</h2>
+            <div class="row g-3 justify-content-center cat-grid">
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2"><div class="cat p-3 shadow-sm rounded-4 bg-white">Tuberías</div></div>
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2"><div class="cat p-3 shadow-sm rounded-4 bg-white">Válvulas</div></div>
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2"><div class="cat p-3 shadow-sm rounded-4 bg-white">Aspersores</div></div>
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2"><div class="cat p-3 shadow-sm rounded-4 bg-white">Goteros</div></div>
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2"><div class="cat p-3 shadow-sm rounded-4 bg-white">Accesorios</div></div>
+                <div class="col-6 col-sm-4 col-md-3 col-lg-2"><div class="cat p-3 shadow-sm rounded-4 bg-white">Bombas</div></div>
+            </div>
         </div>
     </section>
 
     <!-- PRODUCTOS -->
-    <section class="productos">
-        <div class="productos-header">
-            <div class="header-left">
-                <span class="sub-green">SELECCIÓN ESPECIAL</span>
-                <h2>Productos Destacados</h2>
+    <section class="productos py-5 bg-white text-dark">
+        <div class="container">
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-end mb-5 gap-3">
+                <div>
+                    <span class="text-success-custom fw-bold small tracking-wider d-block mb-1">SELECCIÓN ESPECIAL</span>
+                    <h2 class="fw-bold m-0 dark-blue-text">Productos Destacados</h2>
+                </div>
+                <a href="#" class="text-success-custom text-decoration-none fw-bold align-self-start align-self-sm-auto">Ver catálogo completo ➔</a>
             </div>
-            <a href="#" class="view-all">Ver catálogo completo ➔</a>
-        </div>
-        <div class="productos-grid">
-            <div class="card">
-                <div class="card-img-container">
-                    <span class="badge-destacado">Destacado</span>
-                    <img src="img/example-product1.jpg" alt="Tubería">
-                </div>
-                <div class="card-info">
-                    <span class="card-category">TUBERÍAS</span>
-                    <h3>Tubería PVC Presión 1/2"</h3>
-                    <p class="card-desc">Tubería de PVC para sistemas de riego a presión, resistente a rayos UV y productos químicos...</p>
-                    <div class="card-footer">
-                        <div class="price-stock">
-                            <span class="precio">S/ 8.50</span>
-                            <span class="stock"><i class="dot"></i> Stock: 450 unid.</span>
-                        </div>
-                        <button class="btn-detalles">Ver detalles</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img-container">
-                    <span class="badge-destacado">Destacado</span>
-                    <img src="img/example-product2.jpg" alt="Válvula">
-                </div>
-                <div class="card-info">
-                    <span class="card-category">VÁLVULAS</span>
-                    <h3>Válvula de Bola 1/2" PVC</h3>
-                    <p class="card-desc">Válvula de bola en PVC para control de flujo en sistemas de riego. Fácil operación y larga vida útil.</p>
-                    <div class="card-footer">
-                        <div class="price-stock">
-                            <span class="precio">S/ 12.50</span>
-                            <span class="stock"><i class="dot"></i> Stock: 200 unid.</span>
-                        </div>
-                        <button class="btn-detalles">Ver detalles</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img-container">
-                    <span class="badge-destacado">Destacado</span>
-                    <img src="img/example-product3.jpg" alt="Válvula">
-                </div>
-                <div class="card-info">
-                    <span class="card-category">ASPERSORES</span>
-                    <h3>Aspersor Emergente 4"</h3>
-                    <p class="card-desc">Aspersor emergente de 4 pulgadas con radio de cobertura de 3 a 5 metros. Ideal para jardines y áreas verdes.</p>
-                    <div class="card-footer">
-                        <div class="price-stock">
-                            <span class="precio">S/ 28.00</span>
-                            <span class="stock"><i class="dot"></i> Stock: 95 unid.</span>
-                        </div>
-                        <button class="btn-detalles">Ver detalles</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-img-container">
-                    <span class="badge-destacado">Destacado</span>
-                    <img src="img/example-product4.jpg" alt="Válvula">
-                </div>
-                <div class="card-info">
-                    <span class="card-category">ACCESORIOS</span>
-                    <h3>Controlador de Riego 6 Zonas</h3>
-                    <p class="card-desc">Controlador programable de 6 zonas para automatización de sistemas de riego. Pantalla LCD y programación semanal.</p>
-                    <div class="card-footer">
-                        <div class="price-stock">
-                            <span class="precio">S/ 220.00</span>
-                            <span class="stock"><i class="dot"></i> Stock: 25 unid.</span>
-                        </div>
-                        <button class="btn-detalles">Ver detalles</button>
-                    </div>
-                </div>
-            </div>
-            </div>
-    </section>
 
-    <!-- NOSOTROS -->
-    <section class="nosotros">
-        <!-- IMAGEN -->
-        <div class="nosotros-img">
-            <img src="img/background_nosotros.jpg" class="img-main">
+            <div class="row g-4">
+                <!-- Card 1 -->
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm border-light rounded-4 overflow-hidden card-product">
+                        <div class="position-relative bg-light p-3 d-flex justify-content-center align-items-center" style="height: 220px;">
+                            <span class="badge bg-success position-absolute top-0 start-0 m-3 z-1 px-3 py-2 rounded-pill">Destacado</span>
+                            <img src="img/example-product1.jpg" class="img-fluid max-h-100" alt="Tubería PVC">
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <span class="text-muted small tracking-wider d-block mb-2">TUBERÍAS</span>
+                            <h5 class="fw-bold dark-blue-text mb-2">Tubería PVC Presión 1/2"</h5>
+                            <p class="text-secondary small mb-4 flex-grow-1 card-text-truncate">Tubería de PVC para sistemas de riego a presión, resistente a rayos UV y productos químicos...</p>
+                            <div class="pt-3 border-top d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="d-block h5 fw-bold text-success-dark mb-1">S/ 8.50</span>
+                                    <span class="text-muted small d-flex align-items-center gap-1">
+                                        <span class="dot-status bg-success"></span> Stock: 450 unid.
+                                    </span>
+                                </div>
+                                <button class="btn btn-outline-success-custom btn-sm fw-bold px-3 py-2 rounded-2">Ver detalles</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <img src="img/background_nosotros2.jpg" class="img-small">
-        </div>
-        <!-- TEXTO -->
-        <div class="nosotros-text">
-            <span class="badge">SOBRE NOSOTROS</span>
-            <h2>Especialistas en Sistemas de Riego desde 2010</h2>
-            <p>
-                AgroinPeru S.A.C. nació con la misión de proveer soluciones integrales 
-                de riego para el sector agrícola peruano.
-            </p>
-            <p>
-                Trabajamos con agricultores, empresas agroindustriales y proyectos de infraestructura,
-                ofreciendo asesoría técnica especializada.
-            </p>
-            <ul class="check-list">
-                <li>Asesoría técnica personalizada sin costo</li>
-                <li>Productos certificados con garantía extendida</li>
-                <li>Despacho a nivel nacional en 24-48 horas</li>
-                <li>Más de 500 productos en stock permanente</li>
-            </ul>
-            <!-- STATS -->
-            <div class="stats-nosotros">
-                <div>
-                    <strong>15+</strong>
-                    <span>Años</span>
+                <!-- Card 2 -->
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm border-light rounded-4 overflow-hidden card-product">
+                        <div class="position-relative bg-light p-3 d-flex justify-content-center align-items-center" style="height: 220px;">
+                            <span class="badge bg-success position-absolute top-0 start-0 m-3 z-1 px-3 py-2 rounded-pill">Destacado</span>
+                            <img src="img/example-product2.jpg" class="img-fluid max-h-100" alt="Válvula">
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <span class="text-muted small tracking-wider d-block mb-2">VÁLVULAS</span>
+                            <h5 class="fw-bold dark-blue-text mb-2">Válvula de Bola 1/2" PVC</h5>
+                            <p class="text-secondary small mb-4 flex-grow-1 card-text-truncate">Válvula de bola en PVC para control de flujo en sistemas de riego. Fácil operación y larga vida útil.</p>
+                            <div class="pt-3 border-top d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="d-block h5 fw-bold text-success-dark mb-1">S/ 12.50</span>
+                                    <span class="text-muted small d-flex align-items-center gap-1">
+                                        <span class="dot-status bg-success"></span> Stock: 200 unid.
+                                    </span>
+                                </div>
+                                <button class="btn btn-outline-success-custom btn-sm fw-bold px-3 py-2 rounded-2">Ver detalles</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <strong>500+</strong>
-                    <span>Proyectos</span>
+
+                <!-- Card 3 -->
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm border-light rounded-4 overflow-hidden card-product">
+                        <div class="position-relative bg-light p-3 d-flex justify-content-center align-items-center" style="height: 220px;">
+                            <span class="badge bg-success position-absolute top-0 start-0 m-3 z-1 px-3 py-2 rounded-pill">Destacado</span>
+                            <img src="img/example-product3.jpg" class="img-fluid max-h-100" alt="Aspersor">
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <span class="text-muted small tracking-wider d-block mb-2">ASPERSORES</span>
+                            <h5 class="fw-bold dark-blue-text mb-2">Aspersor Emergente 4"</h5>
+                            <p class="text-secondary small mb-4 flex-grow-1 card-text-truncate">Aspersor emergente de 4 pulgadas con radio de cobertura de 3 a 5 metros. Ideal para áreas verdes.</p>
+                            <div class="pt-3 border-top d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="d-block h5 fw-bold text-success-dark mb-1">S/ 28.00</span>
+                                    <span class="text-muted small d-flex align-items-center gap-1">
+                                        <span class="dot-status bg-success"></span> Stock: 95 unid.
+                                    </span>
+                                </div>
+                                <button class="btn btn-outline-success-custom btn-sm fw-bold px-3 py-2 rounded-2">Ver detalles</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <strong>98%</strong>
-                    <span>Satisfacción</span>
+
+                <!-- Card 4 -->
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card h-100 shadow-sm border-light rounded-4 overflow-hidden card-product">
+                        <div class="position-relative bg-light p-3 d-flex justify-content-center align-items-center" style="height: 220px;">
+                            <span class="badge bg-success position-absolute top-0 start-0 m-3 z-1 px-3 py-2 rounded-pill">Destacado</span>
+                            <img src="img/example-product4.jpg" class="img-fluid max-h-100" alt="Controlador">
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <span class="text-muted small tracking-wider d-block mb-2">ACCESORIOS</span>
+                            <h5 class="fw-bold dark-blue-text mb-2">Controlador de Riego 6Z</h5>
+                            <p class="text-secondary small mb-4 flex-grow-1 card-text-truncate">Controlador programable de 6 zonas para automatización de riego. Pantalla LCD y programación semanal.</p>
+                            <div class="pt-3 border-top d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="d-block h5 fw-bold text-success-dark mb-1">S/ 220.00</span>
+                                    <span class="text-muted small d-flex align-items-center gap-1">
+                                        <span class="dot-status bg-success"></span> Stock: 25 unid.
+                                    </span>
+                                </div>
+                                <button class="btn btn-outline-success-custom btn-sm fw-bold px-3 py-2 rounded-2">Ver detalles</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="cta">
-        <span class="cta-tag">¿LISTO PARA OPTIMIZAR TU RIEGO?</span>
-        <h2>Soluciones de Riego a Medida <br> para tu Proyecto</h2>
-        <p>Nuestro equipo técnico te ayuda a diseñar el sistema de riego ideal para tu cultivo. Solicita tu asesoría gratuita hoy.</p>
-        <div class="cta-buttons">
-            <button class="btn-cta-primary">
-                <i class="icon-leaf"></i> Solicitar Asesoría
-            </button>
-            <button class="btn-cta-outline">
-                <i class="icon-catalog"></i> Ver Catálogo
-            </button>
+    <!-- NOSOTROS -->
+    <section class="nosotros py-5 bg-light-custom text-dark">
+        <div class="container py-lg-4">
+            <div class="row align-items-center g-5">
+                <!-- IMÁGENES -->
+                <div class="col-lg-6 position-relative order-last order-lg-first mt-5 mt-lg-0">
+                    <div class="nosotros-img-container mx-auto">
+                        <img src="img/background_nosotros.jpg" class="img-fluid img-main shadow rounded-4" alt="Campo e infraestructura de riego">
+                        <img src="img/background_nosotros2.jpg" class="img-fluid img-small shadow rounded-3 d-none d-sm-block" alt="Detalle de riego">
+                    </div>
+                </div>
+                <!-- TEXTO -->
+                <div class="col-lg-6 nosotros-text">
+                    <span class="badge-about mb-3 d-inline-block">SOBRE NOSOTROS</span>
+                    <h2 class="fw-bold mb-4">Especialistas en Sistemas de Riego desde 2010</h2>
+                    <p class="text-secondary">AgroinPeru S.A.C. nació con la misión de proveer soluciones integrales de riego para el sector agrícola peruano.</p>
+                    <p class="text-secondary mb-4">Trabajamos con agricultores, empresas agroindustriales y proyectos de infraestructura, ofreciendo asesoría técnica especializada.</p>
+                    
+                    <ul class="list-unstyled check-list mb-4">
+                        <li class="mb-2"><i class="fa-solid fa-check text-success-custom me-2"></i> Asesoría técnica personalizada sin costo</li>
+                        <li class="mb-2"><i class="fa-solid fa-check text-success-custom me-2"></i> Productos certificados con garantía extendida</li>
+                        <li class="mb-2"><i class="fa-solid fa-check text-success-custom me-2"></i> Despacho a nivel nacional en 24-48 horas</li>
+                        <li class="mb-2"><i class="fa-solid fa-check text-success-custom me-2"></i> Más de 500 productos en stock permanente</li>
+                    </ul>
+
+                    <div class="row g-4 pt-3 border-top border-light-subtle text-center text-sm-start">
+                        <div class="col-4">
+                            <strong class="d-block text-success-custom fs-3 fw-bold">15+</strong>
+                            <span class="small text-muted">Años</span>
+                        </div>
+                        <div class="col-4">
+                            <strong class="d-block text-success-custom fs-3 fw-bold">500+</strong>
+                            <span class="small text-muted">Proyectos</span>
+                        </div>
+                        <div class="col-4">
+                            <strong class="d-block text-success-custom fs-3 fw-bold">98%</strong>
+                            <span class="small text-muted">Satisfacción</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-col main-info">
-                <h3 class="footer-logo">AgroinPeru S.A.C.</h3>
-                <p>Más de 15 años suministrando tuberías, válvulas, aspersores y goteros de alta calidad para la agricultura moderna del Perú.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-whatsapp"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-
-            <div class="footer-col">
-                <h4>PRODUCTOS</h4>
-                <ul>
-                    <li><a href="#">Tuberías PVC</a></li>
-                    <li><a href="#">Válvulas</a></li>
-                    <li><a href="#">Aspersores</a></li>
-                    <li><a href="#">Goteros</a></li>
-                    <li><a href="#">Bombas</a></li>
-                    <li><a href="#">Fertilizantes</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4>EMPRESA</h4>
-                <ul>
-                    <li><a href="#">Nosotros</a></li>
-                    <li><a href="#">Catálogo</a></li>
-                    <li><a href="#">Contacto</a></li>
-                    <li><a href="#">Distribuidores</a></li>
-                    <li><a href="#">Blog Técnico</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-col">
-                <h4>CONTACTO</h4>
-                <ul class="contact-info">
-                    <li><i class="location-icon"></i> Av. Ejército 301, Yanahuara Arequipa, Perú</li>
-                    <li><i class="phone-icon"></i> +51 999 888 777</li>
-                    <li><i class="mail-icon"></i> ventas@agroinperu.com</li>
-                    <li><i class="clock-icon"></i> Lun - Sáb: 8am - 6pm</li>
-                </ul>
+    <!-- CTA -->
+    <section class="cta py-5 text-center text-white d-flex align-items-center">
+        <div class="container py-4">
+            <span class="cta-tag px-3 py-1 rounded-pill small fw-bold">¿LISTO PARA OPTIMIZAR TU RIEGO?</span>
+            <h2 class="display-5 fw-bold my-4">Soluciones de Riego a Medida <br class="d-none d-md-block"> para tu Proyecto</h2>
+            <p class="lead mx-auto text-light-custom mb-5" style="max-width: 700px;">Nuestro equipo técnico te ayuda a diseñar el sistema de riego ideal para tu cultivo. Solicita tu asesoría gratuita hoy.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <button class="btn btn-success-custom text-white btn-lg rounded-pill px-4 py-3 fs-6 fw-bold shadow">
+                    <i class="fa-solid fa-leaf me-2"></i> Solicitar Asesoría
+                </button>
+                <button class="btn btn-outline-light btn-lg rounded-pill px-4 py-3 fs-6 fw-bold">
+                    <i class="fa-solid fa-book-open me-2"></i> Ver Catálogo
+                </button>
             </div>
         </div>
-        
-        <div class="footer-bottom">
-            <p>© 2025 AgroinPeru S.A.C. Todos los derechos reservados.</p>
-            <div class="footer-legal">
-                <a href="#">Términos</a> | <a href="#">Privacidad</a> | <a href="#">Cookies</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer bg-dark-blue py-5 text-secondary-custom">
+        <div class="container">
+            <div class="row g-4 pb-5 border-bottom border-secondary border-opacity-10">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <h3 class="text-white fw-bold mb-3">AgroinPeru S.A.C.</h3>
+                    <p class="small mb-4 line-height-relaxed">Más de 15 años suministrando tuberías, válvulas, aspersores y goteros de alta calidad para la agricultura moderna del Perú.</p>
+                    <div class="d-flex gap-3 social-links">
+                        <a href="#" class="rounded-circle text-white-50"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="rounded-circle text-white-50"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="rounded-circle text-white-50"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="rounded-circle text-white-50"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h5 class="text-success-custom small fw-bold mb-4 tracking-wider">PRODUCTOS</h5>
+                    <ul class="list-unstyled footer-menu small">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary-custom">Tuberías PVC</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary-custom">Válvulas</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary-custom">Aspersores</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary-custom">Goteros</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary-custom">Bombas</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h5 class="text-success-custom small fw-bold mb-4 tracking-wider">EMPRESA</h5>
+                    <ul class="list-unstyled footer-menu small">
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary-custom">Nosotros</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary-custom">Catálogo</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary-custom">Contacto</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-secondary-custom">Distribuidores</a></li>
+                    </ul>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <h5 class="text-success-custom small fw-bold mb-4 tracking-wider">CONTACTO</h5>
+                    <ul class="list-unstyled footer-contact small">
+                        <li class="mb-3 d-flex align-items-start gap-2">
+                            <i class="fa-solid fa-location-dot mt-1 text-success-custom"></i>
+                            <span>Av. Ejército 301, Yanahuara Arequipa, Perú</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-phone text-success-custom"></i>
+                            <span>+51 999 888 777</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-envelope text-success-custom"></i>
+                            <span>ventas@agroinperu.com</span>
+                        </li>
+                        <li class="d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-clock text-success-custom"></i>
+                            <span>Lun - Sáb: 8am - 6pm</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center pt-4 small text-center text-sm-start gap-3">
+                <p class="m-0">© 2026 AgroinPeru S.A.C. Todos los derechos reservados.</p>
+                <div class="footer-legal">
+                    <a href="#" class="text-decoration-none text-secondary-custom mx-2">Términos</a>|
+                    <a href="#" class="text-decoration-none text-secondary-custom mx-2">Privacidad</a>|
+                    <a href="#" class="text-decoration-none text-secondary-custom mx-2">Cookies</a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- Bootstrap 5 JavaScript Bundle con Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-    window.addEventListener("scroll", function() {
-        const navbar = document.querySelector(".navbar");
-
-        if (window.scrollY > 50) {
-            navbar.classList.add("scrolled");
-        } else {
-            navbar.classList.remove("scrolled");
-        }
-    });
+        window.addEventListener("scroll", function() {
+            const navbar = document.getElementById("mainNav");
+            if (window.scrollY > 50) {
+                navbar.classList.add("navbar-scrolled", "shadow-sm", "navbar-light");
+                navbar.classList.remove("navbar-dark");
+            } else {
+                navbar.classList.remove("navbar-scrolled", "shadow-sm", "navbar-light");
+                navbar.classList.add("navbar-dark");
+            }
+        });
     </script>
 </body>
 </html>
