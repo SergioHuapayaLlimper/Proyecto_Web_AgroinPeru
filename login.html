@@ -1,33 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="CSS/style.css">
+    <title>Login - AgroinPeru S.A.C.</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tu CSS Personalizado -->
+    <link rel="stylesheet" href="/CSS/style.css">
 </head>
-<body>
-    <div class="login-container">
-    <div class="login-card">
-        <div class="login-header">
-            <h2>AgroinPeru S.A.C.</h2>
-            <p>Sistema de Gestión</p>
-        </div>
-        <div class="login-body">
-            <h3>Iniciar Sesión</h3>
-            <label>Correo electrónico</label>
-            <input type="email" placeholder="correo@agroinperu.com">
-            <label>Contraseña</label>
-            <input type="password" placeholder="********">
-            <button class="btn-login">Iniciar Sesión</button>
-            <div class="demo">
-                <p><strong>Cuentas de prueba:</strong></p>
-                <p>Admin: admin@agroinperu.com / admin123</p>
-                <p>Cajero: cajero@agroinperu.com / cajero123</p>
+<body class="login-body-wrapper">
+
+    <div class="container d-flex flex-column align-items-center justify-content-center min-vh-100 py-4">
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden login-card">
+            <!-- Header de la Card -->
+            <div class="login-card-header text-center text-white p-4">
+                <h2 class="fw-bold fs-4 m-0">AgroinPeru S.A.C.</h2>
+                <p class="small opacity-75 m-0 mt-1">Sistema de Gestión</p>
+            </div>
+            
+            <!-- Cuerpo de la Card -->
+            <div class="card-body p-4 p-sm-5 text-dark">
+                <h3 class="fs-5 text-center fw-bold mb-4">Iniciar Sesión</h3>
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label small fw-semibold">Correo electrónico</label>
+                        <input type="email" class="form-control p-2.5 rounded-3" placeholder="correo@agroinperu.com" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-semibold">Contraseña</label>
+                        <input type="password" class="form-control p-2.5 rounded-3" placeholder="********" required>
+                    </div>
+                    <button type="submit" class="btn btn-login-submit w-100 py-2.5 rounded-3 text-white fw-bold shadow-sm">
+                        <a href="/pages/admin/dashboard.html" class="text-white text-decoration-none">Iniciar Sesión</a>
+                    </button>
+                </form>
+
+                <!-- Demo de Cuentas -->
+                <div class="mt-4 p-3 rounded-3 bg-light border demo-box">
+                    <p class="small mb-1"><strong>Cuentas de prueba:</strong></p>
+                    <p class="small text-muted mb-1"><strong>Admin:</strong> admin@agroinperu.com / admin123</p>
+                    <p class="small text-muted mb-0"><strong>Cajero:</strong> cajero@agroinperu.com / cajero123</p>
+                </div>
             </div>
         </div>
+        
+        <!-- Volver -->
+        <a href="index.html" class="back-link mt-4 text-white text-decoration-none small">
+            ← Volver al inicio
+        </a>
     </div>
-    <a href="index.html" class="back">← Volver al inicio</a>
-</div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html> 
+</html>

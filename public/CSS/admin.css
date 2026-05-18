@@ -1,0 +1,163 @@
+/* ==========================================================================
+   VARIABLES Y CONFIGURACIONES AGROINPERU ADMIN
+   ========================================================================== */
+:root {
+    --admin-green-sidebar: #13582c;
+    --admin-green-active: #198754;
+    --admin-bg-light: #f4f6f9;
+    --admin-text-dark: #2b3a4a;
+    --badge-boleta: #e6f2ff;
+    --badge-boleta-text: #0d6efd;
+    --badge-factura: #f3e8ff;
+    --badge-factura-text: #a855f7;
+    --badge-proforma: #fef3c7;
+    --badge-proforma-text: #d97706;
+}
+
+body {
+    background-color: var(--admin-bg-light);
+    color: var(--admin-text-dark);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* LAYOUT ESTRUCTURA (Sidebar + Main Content) */
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    width: 260px;
+    background-color: var(--admin-green-sidebar);
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s;
+}
+
+.admin-content {
+    flex: 1;
+    margin-left: 260px;
+    padding: 24px;
+    min-width: 0; /* Previene desbordamiento de tablas */
+}
+
+/* COMPONENTES DEL SIDEBAR */
+.sidebar-brand {
+    padding: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 16px 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sidebar-menu li a:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-menu li a.active {
+    color: #fff;
+    background-color: var(--admin-green-active);
+    font-weight: 600;
+}
+
+.sidebar-footer {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-footer a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* TOPBAR / HEADER */
+.admin-header {
+    background: #fff;
+    padding: 14px 24px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+/* CARDS E INTERFAZ GENERAL */
+.stat-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.icon-box {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+/* TABLAS PERSONALIZADAS */
+.admin-table-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    overflow: hidden;
+}
+
+.admin-table th {
+    font-weight: 600;
+    color: #718096;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background-color: #fafafa !important;
+    border-bottom: 1px solid #edf2f7;
+    padding: 16px;
+}
+
+.admin-table td {
+    padding: 16px;
+    vertical-align: middle;
+    color: #2d3748;
+    border-bottom: 1px solid #edf2f7;
+}
+
+/* BADGES FILTRADOS Y ESTADOS */
+.badge-type-boleta { background-color: var(--badge-boleta); color: var(--badge-boleta-text); }
+.badge-type-factura { background-color: var(--badge-factura); color: var(--badge-factura-text); }
+.badge-type-proforma { background-color: var(--badge-proforma); color: var(--badge-proforma-text); }
+
+.badge-status-emitida { background-color: #e6f4ea; color: #137333; }
+.badge-status-anulada { background-color: #fce8e6; color: #c5221f; }
+
+/* AJUSTES RESPONSIVE BÁSICOS */
+@media (max-width: 991.98px) {
+    .admin-sidebar { margin-left: -260px; }
+    .admin-sidebar.active { margin-left: 0; }
+    .admin-content { margin-left: 0; }
+}

@@ -1,3 +1,4 @@
+<<<<<<< HEAD:public/CSS/style.css
 * {
     margin: 0;
     padding: 0;
@@ -673,4 +674,259 @@ body {
     color: #a0aec0;
     text-decoration: none;
     margin: 0 5px;
+=======
+/* ==========================================================================
+CONFIGURACIONES GLOBALES Y VARIABLES
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+:root {
+    --primary-green: #2ecc71;
+    --dark-green: #1b8045;
+    --deep-green: #1a472a;
+    --bg-dark-blue: #0d1721;
+    --text-muted-custom: #a0aec0;
+}
+
+/* Colores Clave Personalizados para clases de Bootstrap */
+.text-success-custom { color: var(--primary-green) !important; }
+.text-success-dark { color: var(--dark-green) !important; }
+.bg-light-custom { background-color: #f8f9fa !important; }
+.bg-dark-blue { background-color: var(--bg-dark-blue) !important; }
+.text-secondary-custom { color: var(--text-muted-custom) !important; }
+.dark-blue-text { color: #0b1d2a; }
+.btn-success-custom { background-color: var(--primary-green) !important; border: none; }
+.btn-success-custom:hover { background-color: #27ae60 !important; }
+
+/* ==========================================================================
+NAVBAR (DINÁMICO CON BOOTSTRAP)
+   ========================================================================== */
+.navbar {
+    padding: 20px 0;
+    transition: all 0.4s ease-in-out;
+}
+
+.navbar .nav-link {
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+/* Estado de scroll activado por JavaScript */
+.navbar.navbar-scrolled {
+    background-color: #ffffff !important;
+    padding: 12px 0;
+}
+.navbar.navbar-scrolled .logo,
+.navbar.navbar-scrolled .navbar-nav .nav-link {
+    color: #333333 !important;
+}
+.navbar.navbar-scrolled .navbar-nav .nav-link.active,
+.navbar.navbar-scrolled .navbar-nav .nav-link:hover {
+    color: var(--primary-green) !important;
+}
+.navbar.navbar-scrolled .btn-admin-nav {
+    border-color: var(--dark-green) !important;
+    color: var(--dark-green) !important;
+}
+.navbar.navbar-scrolled .btn-admin-nav:hover {
+    background-color: var(--dark-green) !important;
+    color: #fff !important;
+}
+
+/* Ajustes Responsive Navbar móvil */
+@media (max-width: 991.98px) {
+    .navbar, .navbar.navbar-dark {
+        background-color: #ffffff !important;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .navbar .logo, .navbar .navbar-nav .nav-link {
+        color: #333333 !important;
+    }
+    .navbar-toggler {
+        border-color: rgba(0,0,0,0.1);
+        background-color: #f8f9fa;
+    }
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+    .btn-admin-nav {
+        border-color: var(--dark-green) !important;
+        color: var(--dark-green) !important;
+        width: 100%;
+    }
+}
+
+/* ==========================================================================
+HERO SECTION
+   ========================================================================== */
+.hero {
+    min-height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+                url('../img/background_home.jpg') center/cover no-repeat;
+    padding-top: 120px;
+    padding-bottom: 60px;
+}
+.tag {
+    display: inline-block;
+    background: #1c7c54;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* ==========================================================================
+CATEGORÍAS
+   ========================================================================== */
+.cat {
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.cat:hover {
+    transform: translateY(-5px);
+    background-color: var(--primary-green) !important;
+    color: white !important;
+}
+
+/* ==========================================================================
+PRODUCTOS
+   ========================================================================== */
+.card-product {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-product:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08) !important;
+}
+.max-h-100 { max-height: 100%; object-fit: contain; }
+.dot-status {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.btn-outline-success-custom {
+    border: 1px solid var(--primary-green);
+    color: var(--primary-green);
+    background: transparent;
+    transition: 0.3s;
+}
+.btn-outline-success-custom:hover {
+    background-color: var(--primary-green);
+    color: white;
+}
+.card-text-truncate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+    height: 54px;
+}
+
+/* ==========================================================================
+NOSOTROS (COMPOSICIÓN DE IMÁGENES SUPERPUESTAS)
+   ========================================================================== */
+.badge-about {
+    background: #e6f7ef;
+    color: #1c7c54;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+.nosotros-img-container {
+    position: relative;
+    max-width: 500px;
+}
+.img-main {
+    width: 100%;
+}
+.img-small {
+    position: absolute;
+    bottom: -25px;
+    right: -25px;
+    width: 40%;
+    border: 6px solid white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* ==========================================================================
+CTA SECTION
+   ========================================================================== */
+.cta {
+    background: linear-gradient(rgba(26, 71, 42, 0.88), rgba(26, 71, 42, 0.88)),
+                url('../img/background_consulta.jpg') center/cover no-repeat fixed;
+    min-height: 60vh;
+}
+.cta-tag {
+    background: rgba(255,255,255,0.12);
+    color: var(--primary-green);
+    letter-spacing: 1px;
+}
+
+/* ==========================================================================
+FOOTER
+   ========================================================================== */
+.social-links a {
+    width: 38px;
+    height: 38px;
+    background: rgba(255,255,255,0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s, color 0.3s;
+}
+.social-links a:hover {
+    background: var(--primary-green);
+    color: #fff !important;
+}
+.footer-menu a:hover {
+    color: #fff !important;
+    padding-left: 2px;
+}
+.footer-menu a { transition: all 0.2s ease; }
+
+/* ==========================================================================
+LOGIN MODULE
+   ========================================================================== */
+.login-body-wrapper {
+    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.6)),
+                url('../img/background_login.jpg') center/cover no-repeat;
+    min-height: 100vh;
+}
+.login-card {
+    width: 100%;
+    max-width: 400px;
+    background-color: #ffffff;
+}
+.login-card-header {
+    background-color: var(--dark-green);
+}
+.btn-login-submit {
+    background-color: #28a745;
+    transition: background-color 0.2s ease;
+}
+.btn-login-submit:hover {
+    background-color: #218838;
+}
+.demo-box {
+    font-size: 0.85rem;
+}
+.back-link {
+    transition: opacity 0.2s;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.back-link:hover {
+    opacity: 0.8;
+    color: var(--primary-green) !important;
+>>>>>>> af688f1be8e0a591a0dde4ab8280b8511af852a5:CSS/style.css
 }
