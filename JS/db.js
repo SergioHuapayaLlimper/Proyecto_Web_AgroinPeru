@@ -1,10 +1,9 @@
-let mysql = require("mysql2");
-let conexion = mysql.createConnection({
-    host: "127.0.0.1",
-    port: 3306,
-    database:"sistema_login",
+const mysql = require("mysql2");
+const conexion = mysql.createConnection({
+    host: "localhost",
     user: "root",
-    password: "AdriSC123@"
+    password: "AdriSC123@",
+    database: "sistema_login",
 });
 
 conexion.connect(function(error){
@@ -14,4 +13,5 @@ conexion.connect(function(error){
         console.log("Conexion exitosa a la base de datos");
     }
 });
+
 conexion.end();
