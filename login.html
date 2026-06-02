@@ -22,18 +22,16 @@
             <!-- Cuerpo de la Card -->
             <div class="card-body p-4 p-sm-5 text-dark">
                 <h3 class="fs-5 text-center fw-bold mb-4">Iniciar Sesión</h3>
-                <form>
+                <form action="" method="post">
                     <div class="mb-3">
                         <label class="form-label small fw-semibold">Correo electrónico</label>
-                        <input type="email" class="form-control p-2.5 rounded-3" placeholder="correo@agroinperu.com" required>
+                        <input type="email" name="email" class="form-control p-2.5 rounded-3" placeholder="correo@agroinperu.com" required>
                     </div>
                     <div class="mb-4">
                         <label class="form-label small fw-semibold">Contraseña</label>
-                        <input type="password" class="form-control p-2.5 rounded-3" placeholder="********" required>
+                        <input type="password" name="password" class="form-control p-2.5 rounded-3" placeholder="********" required>
                     </div>
-                    <button type="submit" class="btn btn-login-submit w-100 py-2.5 rounded-3 text-white fw-bold shadow-sm">
-                        <a href="/pages/admin/dashboard.html" class="text-white text-decoration-none">Iniciar Sesión</a>
-                    </button>
+                    <input type="submit" class="btn btn-login-submit w-100 py-2.5 rounded-3 text-white fw-bold shadow-sm" value="Iniciar Sesión"></input>
                 </form>
 
                 <!-- Demo de Cuentas -->
