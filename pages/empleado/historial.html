@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial del Día - AgroinPeru POS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/CSS/empleado.css">
+</head>
+<body>
+
+    <div class="admin-wrapper">
+        <aside class="admin-sidebar">
+            <div class="sidebar-brand d-flex align-items-center gap-2">
+                <i class="fa-solid fa-leaf text-success fs-4"></i>
+                <div>
+                    <h1 class="h6 m-0 text-white fw-bold">AgroinPeru</h1>
+                    <small class="opacity-50 font-monospace" style="font-size: 11px;">Panel Cajero</small>
+                </div>
+            </div>
+            <div class="sidebar-user text-white d-flex align-items-center gap-2">
+                <div class="bg-success rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                    <i class="fa-solid fa-user fs-6"></i>
+                </div>
+                <div>
+                    <div class="small fw-bold lh-1">María Torres Vega</div>
+                    <small class="opacity-50" style="font-size: 10px;">Cajero</small>
+                </div>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="/pages/empleado/ventas.html"><i class="fa-solid fa-cart-shopping"></i> Ventas</a></li>
+                <li><a href="/pages/empleado/historial.html" class="active"><i class="fa-solid fa-file-invoice"></i> Historial del Día <span class="badge bg-success ms-auto rounded-circle">3</span></a></li>
+                <li><a href="/pages/empleado/devoluciones.html"><i class="fa-solid fa-arrow-rotate-left"></i> Devoluciones</a></li>
+                <li><a href="/pages/empleado/cierre.html"><i class="fa-solid fa-cash-register"></i> Cierre de Caja</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="/index.html"><i class="fa-solid fa-right-from-bracket"></i> Salir</a>
+            </div>
+        </aside>
+
+        <main class="admin-content">
+            <div class="row g-3 mb-4">
+                <div class="col-md-3">
+                    <div class="stat-card p-3 bg-white border d-flex justify-content-between align-items-center">
+                        <div><small class="text-muted text-uppercase d-block fw-bold" style="font-size:11px;">TOTAL DÍA</small><span class="fs-4 fw-bold">S/ 2041.50</span><small class="d-block text-muted">3 comprobantes</small></div>
+                        <i class="fa-solid fa-wallet text-success fs-3 opacity-20"></i>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card p-3 bg-white border d-flex justify-content-between align-items-center">
+                        <div><small class="text-muted text-uppercase d-block fw-bold" style="font-size:11px;">EFECTIVO</small><span class="fs-4 fw-bold">S/ 205.00</span><small class="d-block text-muted">1 ops.</small></div>
+                        <i class="fa-solid fa-money-bill text-dark fs-3 opacity-20"></i>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card p-3 bg-white border d-flex justify-content-between align-items-center">
+                        <div><small class="text-muted text-uppercase d-block fw-bold" style="font-size:11px;">TARJETA</small><span class="fs-4 fw-bold">S/ 1660.00</span><small class="d-block text-muted">1 ops.</small></div>
+                        <i class="fa-solid fa-credit-card text-dark fs-3 opacity-20"></i>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card p-3 bg-white border d-flex justify-content-between align-items-center">
+                        <div><small class="text-muted text-uppercase d-block fw-bold" style="font-size:11px;">YAPE/PLIN</small><span class="fs-4 fw-bold">S/ 176.50</span><small class="d-block text-muted">1 ops.</small></div>
+                        <i class="fa-solid fa-mobile-screen text-dark fs-3 opacity-20"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card bg-white p-4">
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+                    <div>
+                        <h5 class="fw-bold m-0">Comprobantes del Día</h5>
+                        <small class="text-muted">Miércoles, 03 de Junio de 2026</small>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <input type="text" class="form-control form-control-sm" placeholder="N° ticket o cliente...">
+                        <select class="form-select form-select-sm"><option>Todos los tipos</option></select>
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-outline-secondary active">Todos</button>
+                            <button class="btn btn-outline-secondary">Emitidos</button>
+                            <button class="btn btn-outline-secondary">Anulados</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead class="table-light">
+                            <tr style="font-size: 11px;" class="text-muted text-uppercase">
+                                <th>N° Comprobante</th>
+                                <th>Hora</th>
+                                <th>Cliente</th>
+                                <th>Items</th>
+                                <th>Pago</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                                <th class="text-end">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge-boleta me-2">Boleta</span> <strong>B001-000001</strong></td>
+                                <td class="text-muted">08:45</td>
+                                <td>Juan Pérez García</td>
+                                <td>2 prod.</td>
+                                <td><small class="text-muted"><i class="fa-solid fa-money-bill text-success"></i> Efectivo</small></td>
+                                <td class="fw-bold">S/ 205.00</td>
+                                <td><span class="badge-status-emitida">Emitida</span></td>
+                                <td class="text-end"><button class="btn btn-sm btn-light"><i class="fa-solid fa-print"></i></button> <button class="btn btn-sm btn-light text-danger"><i class="fa-solid fa-circle-xmark"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge-factura me-2">Factura</span> <strong>F001-000001</strong></td>
+                                <td class="text-muted">09:30</td>
+                                <td>Agro Sur S.A.C.</td>
+                                <td>2 prod.</td>
+                                <td><small class="text-muted"><i class="fa-solid fa-credit-card text-primary"></i> Tarjeta</small></td>
+                                <td class="fw-bold">S/ 1660.00</td>
+                                <td><span class="badge-status-emitida">Emitida</span></td>
+                                <td class="text-end"><button class="btn btn-sm btn-light"><i class="fa-solid fa-print"></i></button> <button class="btn btn-sm btn-light text-danger"><i class="fa-solid fa-circle-xmark"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge-boleta me-2">Boleta</span> <strong>B001-000002</strong></td>
+                                <td class="text-muted">10:15</td>
+                                <td>Rosa Mamani Coaquira</td>
+                                <td>2 prod.</td>
+                                <td><small class="text-muted"><i class="fa-solid fa-mobile-screen-button text-info"></i> Yape/Plin</small></td>
+                                <td class="fw-bold">S/ 176.50</td>
+                                <td><span class="badge-status-emitida">Emitida</span></td>
+                                <td class="text-end"><button class="btn btn-sm btn-light"><i class="fa-solid fa-print"></i></button> <button class="btn btn-sm btn-light text-danger"><i class="fa-solid fa-circle-xmark"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-3 border-top pt-3">
+                    <small class="text-muted">Mostrando 3 de 3 comprobantes</small>
+                    <span class="fw-bold text-success">Subtotal filtrado: S/ 2041.50</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+/* ==========================================================================
+   VARIABLES Y CONFIGURACIONES AGROINPERU - CAJERO GENERAL
+   ========================================================================== */
+:root {
+    --admin-green-sidebar: #13582c;
+    --admin-green-active: #198754;
+    --admin-bg-light: #f4f6f9;
+    --admin-text-dark: #2b3a4a;
+    
+    --badge-boleta: #e6f2ff;
+    --badge-boleta-text: #0d6efd;
+    --badge-factura: #f3e8ff;
+    --badge-factura-text: #a855f7;
+    --badge-proforma: #fef3c7;
+    --badge-proforma-text: #d97706;
+
+    /* Nuevas variables para el módulo POS */
+    --pos-bg-card: #ffffff;
+    --pos-border-color: #edf2f7;
+    --btn-cancel: #fce8e6;
+    --btn-cancel-text: #c5221f;
+}
+
+body {
+    background-color: var(--admin-bg-light);
+    color: var(--admin-text-dark);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* LAYOUT ESTRUCTURA (Sidebar + Main Content) */
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    width: 260px;
+    background-color: var(--admin-green-sidebar);
+    color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    transition: all 0.3s;
+}
+
+.admin-content {
+    flex: 1;
+    margin-left: 260px;
+    padding: 24px;
+    min-width: 0;
+}
+
+/* COMPONENTES DEL SIDEBAR */
+.sidebar-brand {
+    padding: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-user {
+    padding: 16px 24px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 16px 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.sidebar-menu li a:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sidebar-menu li a.active {
+    color: #fff;
+    background-color: var(--admin-green-active);
+    font-weight: 600;
+    border-radius: 0 25px 25px 0;
+    margin-right: 15px;
+}
+
+.sidebar-footer {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-footer a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* CARDS E INTERFAZ GENERAL */
+.stat-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+/* PESTAÑAS DE TIPOS DE COMPROBANTES (Ventas superior) */
+.nav-tabs-custom {
+    border-bottom: none;
+    gap: 8px;
+}
+.nav-tabs-custom .nav-link {
+    border: none;
+    color: #718096;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 8px 8px 0 0;
+    background-color: #eef2f5;
+}
+.nav-tabs-custom .nav-link.active {
+    background-color: #ffffff;
+    color: var(--admin-green-sidebar);
+    border-bottom: 3px solid var(--admin-green-active);
+}
+
+/* CONTENEDORES INTERNOS DEL POS */
+.pos-container {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid var(--pos-border-color);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.scan-placeholder {
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 60px 20px;
+    text-align: center;
+    color: #94a3b8;
+}
+
+/* BOTONES DE MÉTODOS DE PAGO */
+.btn-payment-method {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #fff;
+    font-weight: 600;
+    color: var(--admin-text-dark);
+    margin-bottom: 12px;
+    transition: all 0.2s;
+}
+.btn-payment-method.active {
+    border-color: #198754;
+    background-color: #f1fbf7;
+}
+
+/* BOTÓN ANULAR INTERFAZ */
+.btn-anular {
+    width: 100%;
+    background-color: #fff1f0;
+    color: #d9383a;
+    border: 1px solid #ffa39e;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+.btn-anular:hover {
+    background-color: #ffccc7;
+}
+
+/* ACCESO RÁPIDO Y DETALLES */
+.quick-access-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--pos-border-color);
+    cursor: pointer;
+}
+.quick-access-item:hover {
+    background-color: #f8fafc;
+}
+
+/* GRILLA DE MONEDAS - CIERRE DE CAJA */
+.cash-count-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+}
+@media (max-width: 1200px) {
+    .cash-count-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 768px) {
+    .cash-count-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.cash-box-card {
+    background: #fff;
+    border: 1px solid var(--pos-border-color);
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+}
+.cash-box-card.bill { background-color: #f0fdf4; }
+.cash-box-card.coin { background-color: #fffbeb; }
+
+.cash-box-card input {
+    width: 100%;
+    text-align: center;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 4px;
+    font-weight: bold;
+}
+
+/* BADGES PARA TABLAS */
+.badge-boleta { background-color: #e6f2ff; color: #0d6efd; padding: 6px 12px; border-radius: 20px; font-weight: 600; }
+.badge-factura { background-color: #f3e8ff; color: #a855f7; padding: 6px 12px; border-radius: 20px; font-weight: 600; }
+.badge-proforma { background-color: #fef3c7; color: #d97706; padding: 6px 12px; border-radius: 20px; font-weight: 600; }
+.badge-status-emitida { background-color: #e6f4ea; color: #137333; padding: 6px 12px; border-radius: 20px; font-weight: 600; }
+
+/* RESPONSIVE */
+@media (max-width: 991.98px) {
+    .admin-sidebar { margin-left: -260px; }
+    .admin-sidebar.active { margin-left: 0; }
+    .admin-content { margin-left: 0; }
+}
