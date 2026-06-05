@@ -6,104 +6,758 @@
     <title>Inventario - AgroinPeru Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- QR Scanner library -->
+    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
     <link rel="stylesheet" href="/CSS/admin.css">
+    <style>
+        /* ── Modal overlay ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1050;
+        }
+        .modal-overlay.open { display: flex; }
+
+        .modal-box {
+            background: #fff;
+            border-radius: 12px;
+            padding: 1.75rem;
+            width: min(500px, 95vw);
+            max-height: 93vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        }
+        .modal-box h5 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .modal-box label {
+            font-size: 12px;
+            color: #6c757d;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .modal-box input,
+        .modal-box select,
+        .modal-box textarea {
+            width: 100%;
+            padding: .5rem .75rem;
+            font-size: 13px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+            background: #f8f9fa;
+            color: #212529;
+        }
+        .modal-box input:focus,
+        .modal-box select:focus,
+        .modal-box textarea:focus {
+            border-color: #198754;
+            box-shadow: 0 0 0 3px rgba(25,135,84,.15);
+            background: #fff;
+        }
+        .modal-footer-custom {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #dee2e6;
+        }
+
+        /* ── Stats cards ── */
+        .stat-mini {
+            background: #fff;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+            padding: 1rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .stat-mini .stat-icon {
+            width: 44px; height: 44px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .stat-mini .stat-value { font-size: 22px; font-weight: 700; line-height: 1.1; }
+        .stat-mini .stat-label { font-size: 11px; color: #6c757d; }
+
+        /* ── Table ── */
+        .table-search-input {
+            padding-left: 2.5rem !important;
+            border: 1px solid #dee2e6 !important;
+            border-radius: 8px !important;
+            font-size: 13px;
+            background: #fff;
+            box-shadow: none !important;
+        }
+        .table-search-input:focus { border-color: #198754 !important; }
+
+        /* ── QR Scanner ── */
+        #qrReader {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #000;
+            min-height: 220px;
+        }
+        #qrReader video { border-radius: 8px; }
+        .qr-result-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: .75rem 1rem;
+            font-size: 13px;
+            color: #166534;
+            margin-top: .75rem;
+            display: none;
+            word-break: break-all;
+        }
+        .qr-result-box.show { display: block; }
+
+        /* ── Toast ── */
+        .toast-custom {
+            position: fixed;
+            bottom: 1.5rem; right: 1.5rem;
+            padding: .75rem 1.25rem;
+            border-radius: 10px;
+            font-size: 13px; font-weight: 500;
+            display: none; align-items: center; gap: 8px;
+            z-index: 2000; color: #fff;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        .toast-custom.show   { display: flex; }
+        .toast-custom.success { background: #198754; }
+        .toast-custom.danger  { background: #dc3545; }
+        .toast-custom.info    { background: #0d6efd; }
+
+        /* ── Stock badge colors ── */
+        .stock-ok     { color: #166534; background: #dcfce7; }
+        .stock-warn   { color: #854d0e; background: #fef9c3; }
+        .stock-danger { color: #991b1b; background: #fee2e2; }
+
+        /* Confirm */
+        .confirm-center { text-align: center; padding: .5rem; }
+        .confirm-center .icon-danger { font-size: 2.5rem; color: #dc3545; margin-bottom: .75rem; }
+        .confirm-center p { font-size: 14px; color: #6c757d; margin-bottom: 1.25rem; line-height: 1.6; }
+
+        /* Sync indicator */
+        #syncBadge {
+            font-size: 11px; padding: 3px 10px;
+            border-radius: 20px; font-weight: 500;
+            background: #dcfce7; color: #166534;
+            display: inline-flex; align-items: center; gap: 5px;
+        }
+        #syncBadge.syncing { background: #fef9c3; color: #854d0e; }
+
+        /* Filter tabs */
+        .filter-tab {
+            font-size: 12px; padding: 4px 12px;
+            border-radius: 20px; border: 1px solid #dee2e6;
+            background: #fff; cursor: pointer; white-space: nowrap;
+            transition: all .15s;
+        }
+        .filter-tab.active, .filter-tab:hover {
+            background: #198754; color: #fff; border-color: #198754;
+        }
+    </style>
 </head>
 <body>
 
-    <div class="admin-wrapper">
-        <aside class="admin-sidebar">
-            <div class="sidebar-brand d-flex align-items-center gap-2">
-                <i class="fa-solid fa-leaf text-success fs-4"></i>
-                <div><h1 class="h6 m-0 text-white fw-bold">AgroinPeru</h1><small class="opacity-50 font-monospace" style="font-size: 11px;">Panel Admin</small></div>
+<div class="admin-wrapper">
+    <!-- ════════ SIDEBAR ════════ -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-brand d-flex align-items-center gap-2">
+            <i class="fa-solid fa-leaf text-success fs-4"></i>
+            <div>
+                <h1 class="h6 m-0 text-white fw-bold">AgroinPeru</h1>
+                <small class="opacity-50 font-monospace" style="font-size:11px;">Panel Admin</small>
             </div>
-            <ul class="sidebar-menu">
-                <li><a href="/pages/admin/dashboard.html"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
-                <li><a href="/pages/admin/inventario.html" class="active"><i class="fa-solid fa-boxes-stacked"></i> Inventario</a></li>
-                <li><a href="/pages/admin/reportes.html"><i class="fa-solid fa-file-invoice-dollar"></i> Reportes</a></li>
-                <li><a href="/pages/admin/usuarios.html"><i class="fa-solid fa-users"></i> Usuarios</a></li>
-            </ul>
-            <div class="sidebar-footer">
-                <a href="/index.html"><i class="fa-solid fa-right-from-bracket"></i> Salir</a>
-            </div>
-        </aside>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="/pages/admin/dashboard.html"><i class="fa-solid fa-chart-pie"></i> Dashboard</a></li>
+            <li><a href="/pages/admin/inventario.html" class="active"><i class="fa-solid fa-boxes-stacked"></i> Inventario</a></li>
+            <li><a href="/pages/admin/reportes.html"><i class="fa-solid fa-file-invoice-dollar"></i> Reportes</a></li>
+            <li><a href="/pages/admin/usuarios.html"><i class="fa-solid fa-users"></i> Usuarios</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="/index.html"><i class="fa-solid fa-right-from-bracket"></i> Salir</a>
+        </div>
+    </aside>
 
-        <main class="admin-content">
-            <header class="admin-header d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center gap-3">
-                    <button class="btn d-lg-none p-0 text-dark" id="sidebarToggle"><i class="fa-solid fa-bars fs-4"></i></button>
-                    <h2 class="h5 m-0 fw-bold">Inventario</h2>
+    <!-- ════════ MAIN ════════ -->
+    <main class="admin-content">
+
+        <!-- Header -->
+        <header class="admin-header d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn d-lg-none p-0 text-dark" id="sidebarToggle">
+                    <i class="fa-solid fa-bars fs-4"></i>
+                </button>
+                <h2 class="h5 m-0 fw-bold">Inventario</h2>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <!-- RF37: indicador de sincronización -->
+                <span id="syncBadge">
+                    <i class="fa-solid fa-rotate"></i> Sincronizado con Ventas
+                </span>
+                <div class="text-end d-none d-sm-block">
+                    <span class="d-block small fw-bold text-dark">Carlos Mendoza Ríos</span>
+                    <small class="text-muted" style="font-size:11px;">Administrador</small>
                 </div>
-                <div class="d-flex align-items-center gap-3">
-                    <div class="text-end d-none d-sm-block">
-                        <span class="d-block small fw-bold text-dark">Carlos Mendoza Ríos</span>
-                        <small class="text-muted" style="font-size: 11px;">Administrador</small>
+                <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center"
+                     style="width:40px;height:40px;">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- ── Stats (RF35: métricas del inventario) ── -->
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-4">
+                <div class="stat-mini">
+                    <div class="stat-icon bg-success bg-opacity-10 text-success">
+                        <i class="fa-solid fa-boxes-stacked"></i>
                     </div>
-                    <div class="bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;"><i class="fa-solid fa-user"></i></div>
-                </div>
-            </header>
-
-            <div class="d-flex flex-column flex-sm-row justify-content-between gap-3 mb-4">
-                <div class="position-relative style-search" style="max-width: 380px; width: 100%;">
-                    <i class="fa-solid fa-magnifying-glass text-muted position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                    <input type="text" class="form-control ps-5 rounded-3 py-2 border-0 shadow-sm" placeholder="Buscar producto...">
-                </div>
-                <button class="btn btn-success rounded-3 px-4 py-2 fw-semibold shadow-sm align-self-start align-self-sm-auto"><i class="fa-solid fa-plus me-2"></i>Nuevo Producto</button>
-            </div>
-
-            <div class="card admin-table-card">
-                <div class="table-responsive">
-                    <table class="table admin-table m-0 align-middle">
-                        <thead>
-                            <tr>
-                                <th>Código</th>
-                                <th>Nombre</th>
-                                <th>Categoría</th>
-                                <th>Precio</th>
-                                <th class="text-center">Stock</th>
-                                <th class="text-center">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="font-monospace text-muted small">TUB-PVC-1/2</td>
-                                <td class="fw-bold small">Tubería PVC Presión 1/2"</td>
-                                <td><span class="badge bg-success bg-opacity-10 text-success rounded-pill px-2.5 py-1.5 fw-semibold" style="font-size:11px">Tuberías PVC</span></td>
-                                <td class="fw-semibold">S/ 8.50</td>
-                                <td class="text-center font-monospace text-muted small">480</td>
-                                <td class="text-center">
-                                    <button class="btn btn-sm btn-link text-primary p-1"><i class="fa-solid fa-pen"></i></button>
-                                    <button class="btn btn-sm btn-link text-danger p-1"><i class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-monospace text-muted small">ASP-REM-360</td>
-                                <td class="fw-bold small">Aspersor Rotativo 360°</td>
-                                <td><span class="badge bg-success bg-opacity-10 text-success rounded-pill px-2.5 py-1.5 fw-semibold" style="font-size:11px">Aspersores</span></td>
-                                <td class="fw-semibold">S/ 45.00</td>
-                                <td class="text-center font-monospace text-muted small">150</td>
-                                <td class="text-center">
-                                    <button class="btn btn-sm btn-link text-primary p-1"><i class="fa-solid fa-pen"></i></button>
-                                    <button class="btn btn-sm btn-link text-danger p-1"><i class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="font-monospace text-muted small">BOM-SUP-1HP</td>
-                                <td class="fw-bold small">Bomba Superficial 1HP</td>
-                                <td><span class="badge bg-success bg-opacity-10 text-success rounded-pill px-2.5 py-1.5 fw-semibold" style="font-size:11px">Bombas</span></td>
-                                <td class="fw-semibold">S/ 380.00</td>
-                                <td class="text-center"><span class="badge bg-warning text-dark fw-bold rounded-circle p-2 font-monospace" style="width:28px; height:28px; display:inline-flex; align-items:center; justify-content:center;">25</span></td>
-                                <td class="text-center">
-                                    <button class="btn btn-sm btn-link text-primary p-1"><i class="fa-solid fa-pen"></i></button>
-                                    <button class="btn btn-sm btn-link text-danger p-1"><i class="fa-solid fa-trash"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div>
+                        <div class="stat-value text-dark" id="statTotal">0</div>
+                        <div class="stat-label">Total de productos</div>
+                    </div>
                 </div>
             </div>
-        </main>
+            <div class="col-6 col-md-4">
+                <div class="stat-mini">
+                    <div class="stat-icon bg-primary bg-opacity-10 text-primary">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                    </div>
+                    <div>
+                        <div class="stat-value text-dark" id="statValor">S/ 0</div>
+                        <div class="stat-label">Valor de inventario</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4">
+                <div class="stat-mini">
+                    <div class="stat-icon bg-warning bg-opacity-10 text-warning">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div>
+                        <div class="stat-value text-dark" id="statBajoStock">0</div>
+                        <div class="stat-label">Bajo stock (&lt; 30)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Barra de búsqueda + filtros + botones (RF35) ── -->
+        <div class="d-flex flex-column flex-sm-row justify-content-between gap-3 mb-3">
+            <div class="d-flex gap-2 flex-wrap align-items-center" style="flex:1;">
+                <div class="position-relative" style="max-width:320px;width:100%;">
+                    <i class="fa-solid fa-magnifying-glass text-muted position-absolute top-50 start-0 translate-middle-y ms-3"
+                       style="pointer-events:none;font-size:13px;"></i>
+                    <input type="text" id="searchInput"
+                           class="form-control table-search-input"
+                           placeholder="Buscar por nombre, código o categoría..."
+                           oninput="filtrarTabla()" />
+                </div>
+                <!-- Filtro por categoría -->
+                <div class="d-flex gap-1 flex-wrap" id="filtrosTabs">
+                    <button class="filter-tab active" onclick="filtrarCategoria(this,'')">Todos</button>
+                </div>
+            </div>
+            <div class="d-flex gap-2 align-self-start">
+                <!-- RF36: Botón escanear QR -->
+                <button class="btn btn-outline-success rounded-3 px-3 py-2 fw-semibold shadow-sm"
+                        onclick="abrirQR()">
+                    <i class="fa-solid fa-qrcode me-2"></i>Escanear QR
+                </button>
+                <button class="btn btn-success rounded-3 px-3 py-2 fw-semibold shadow-sm"
+                        onclick="abrirModalNuevo()">
+                    <i class="fa-solid fa-plus me-2"></i>Nuevo Producto
+                </button>
+            </div>
+        </div>
+
+        <!-- ── Tabla de inventario (RF31, RF35) ── -->
+        <div class="card admin-table-card">
+            <div class="table-responsive">
+                <table class="table admin-table m-0 align-middle" id="tablaProductos">
+                    <thead>
+                        <tr>
+                            <th>Código QR</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th class="text-center">Stock</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyProductos"></tbody>
+                </table>
+            </div>
+            <div id="sinResultados" class="text-center py-5 d-none text-muted">
+                <i class="fa-solid fa-box-open fs-2 mb-2 d-block opacity-50"></i>
+                No se encontraron productos.
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- ══════════════════════════════════
+     MODAL: Nuevo / Editar Producto (RF36)
+══════════════════════════════════ -->
+<div class="modal-overlay" id="overlayProducto">
+    <div class="modal-box">
+        <h5 id="modalProductoTitulo">
+            <i class="fa-solid fa-plus text-success"></i> Nuevo producto
+        </h5>
+        <input type="hidden" id="pId" />
+
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <label>Código QR / Identificador</label>
+                <div class="input-group input-group-sm">
+                    <input type="text" id="pCodigo" placeholder="Ej: TUB-PVC-1/2" />
+                    <button class="btn btn-outline-success" type="button"
+                            onclick="abrirQREnModal()" title="Escanear QR">
+                        <i class="fa-solid fa-qrcode"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6">
+                <label>Nombre del producto</label>
+                <input type="text" id="pNombre" placeholder="Nombre completo" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <label>Categoría</label>
+                <select id="pCategoria">
+                    <option value="">Seleccionar...</option>
+                    <option>Tuberías PVC</option>
+                    <option>Aspersores</option>
+                    <option>Bombas</option>
+                    <option>Conectores</option>
+                    <option>Válvulas</option>
+                    <option>Mangueras</option>
+                    <option>Accesorios</option>
+                    <option>Fertilizantes</option>
+                    <option>Herramientas</option>
+                </select>
+            </div>
+            <div class="col-6 col-sm-3">
+                <label>Precio (S/)</label>
+                <input type="number" id="pPrecio" placeholder="0.00" min="0" step="0.01" />
+            </div>
+            <div class="col-6 col-sm-3">
+                <label>Stock</label>
+                <input type="number" id="pStock" placeholder="0" min="0" />
+            </div>
+            <div class="col-12">
+                <label>Descripción (opcional)</label>
+                <textarea id="pDesc" rows="2" placeholder="Descripción breve del producto..."></textarea>
+            </div>
+        </div>
+
+        <div class="modal-footer-custom">
+            <button class="btn btn-outline-secondary btn-sm rounded-3"
+                    onclick="cerrarModal('overlayProducto')">Cancelar</button>
+            <button class="btn btn-success btn-sm rounded-3 fw-semibold"
+                    onclick="guardarProducto()">
+                <i class="fa-solid fa-floppy-disk me-1"></i>
+                <span id="btnGuardarTxt">Registrar</span>
+            </button>
+        </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- ══════════════════════════════════
+     MODAL: Escáner QR (RF36)
+══════════════════════════════════ -->
+<div class="modal-overlay" id="overlayQR">
+    <div class="modal-box" style="max-width:420px;">
+        <h5><i class="fa-solid fa-qrcode text-success"></i> Escanear código QR</h5>
+        <p class="text-muted small mb-3">
+            Apunta la cámara al código QR del producto. El código se leerá automáticamente.
+        </p>
+        <div id="qrReader"></div>
+        <div class="qr-result-box" id="qrResultBox">
+            <i class="fa-solid fa-check-circle me-2"></i>
+            <strong>Código detectado:</strong> <span id="qrResultText"></span>
+        </div>
+        <div class="modal-footer-custom">
+            <button class="btn btn-outline-secondary btn-sm rounded-3"
+                    onclick="cerrarQR()">Cerrar</button>
+            <button class="btn btn-success btn-sm rounded-3 fw-semibold d-none"
+                    id="btnUsarQR" onclick="usarCodigoQR()">
+                <i class="fa-solid fa-check me-1"></i>Usar este código
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════
+     MODAL: Confirmar eliminación (RF36)
+══════════════════════════════════ -->
+<div class="modal-overlay" id="overlayEliminar">
+    <div class="modal-box" style="max-width:380px;">
+        <div class="confirm-center">
+            <div class="icon-danger"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <p>¿Seguro que deseas eliminar el producto<br><strong id="delNombreP"></strong>?<br>
+            Esta acción no se puede deshacer.</p>
+            <div class="d-flex gap-2 justify-content-center">
+                <button class="btn btn-outline-secondary btn-sm rounded-3"
+                        onclick="cerrarModal('overlayEliminar')">Cancelar</button>
+                <button class="btn btn-danger btn-sm rounded-3 fw-semibold"
+                        onclick="confirmarEliminar()">
+                    <i class="fa-solid fa-trash me-1"></i>Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast-custom" id="toast">
+    <i class="fa-solid fa-check-circle" id="toastIcon"></i>
+    <span id="toastMsg"></span>
+</div>
+
+<!-- ════════════════════ SCRIPTS ════════════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+/* ═══════════════════════════════════════════════════
+   ESTADO GLOBAL
+   En producción: sincronizar con tu API/base de datos
+═══════════════════════════════════════════════════ */
+
+// RF37: Almacenamiento compartido con el módulo de ventas
+// Se usa localStorage para persistir entre páginas del mismo dominio
+const STORAGE_KEY = 'agroinperu_inventario';
+
+let productos = cargarProductos();
+let nextId    = productos.length ? Math.max(...productos.map(p => p.id)) + 1 : 1;
+let idEliminar = null;
+let modoEdicion = false;
+let qrScanner  = null;
+let qrDesdeModal = false;  // indica si el QR se abrió desde el formulario
+let categoriaActiva = '';
+
+/* ─── Persistencia (RF37) ─── */
+function cargarProductos() {
+    try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        return data ? JSON.parse(data) : productosIniciales();
+    } catch {
+        return productosIniciales();
+    }
+}
+
+function productosIniciales() {
+    return [
+        { id:1, codigo:'TUB-PVC-1/2',  nombre:'Tubería PVC Presión 1/2"',   categoria:'Tuberías PVC', precio:8.50,   stock:480, desc:'' },
+        { id:2, codigo:'ASP-REM-360',   nombre:'Aspersor Rotativo 360°',      categoria:'Aspersores',   precio:45.00,  stock:150, desc:'' },
+        { id:3, codigo:'BOM-SUP-1HP',   nombre:'Bomba Superficial 1HP',        categoria:'Bombas',       precio:380.00, stock:25,  desc:'' },
+        { id:4, codigo:'CON-TEE-3/4',   nombre:'Conector T PVC 3/4"',          categoria:'Conectores',   precio:2.50,   stock:820, desc:'' },
+        { id:5, codigo:'VAL-GAT-1',     nombre:'Válvula de Compuerta 1"',       categoria:'Válvulas',     precio:18.00,  stock:12,  desc:'' },
+    ];
+}
+
+// RF37: Sincronizar con módulo de ventas al guardar
+function sincronizarVentas(operacion) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(productos));
+
+    // Disparar evento para que el módulo de ventas escuche
+    window.dispatchEvent(new CustomEvent('inventarioActualizado', {
+        detail: { productos, operacion, timestamp: new Date().toISOString() }
+    }));
+
+    const badge = document.getElementById('syncBadge');
+    badge.className = 'syncing';
+    badge.innerHTML = '<i class="fa-solid fa-rotate fa-spin"></i> Sincronizando...';
+    setTimeout(() => {
+        badge.className = '';
+        badge.innerHTML = '<i class="fa-solid fa-check"></i> Sincronizado con Ventas';
+    }, 1200);
+}
+
+/* ─── Helpers modales ─── */
+function abrirModal(id)  { document.getElementById(id).classList.add('open'); }
+function cerrarModal(id) { document.getElementById(id).classList.remove('open'); }
+
+document.querySelectorAll('.modal-overlay').forEach(o =>
+    o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); })
+);
+
+/* ─── Toast ─── */
+function mostrarToast(msg, tipo = 'success') {
+    const t    = document.getElementById('toast');
+    const icon = tipo === 'success' ? 'fa-check-circle' : tipo === 'danger' ? 'fa-circle-exclamation' : 'fa-circle-info';
+    document.getElementById('toastIcon').className = `fa-solid ${icon}`;
+    document.getElementById('toastMsg').textContent = msg;
+    t.className = `toast-custom show ${tipo}`;
+    setTimeout(() => { t.className = 'toast-custom'; }, 3000);
+}
+
+/* ═══════════════════════════════════════════════════
+   RF35 – Renderizar tabla con búsqueda
+═══════════════════════════════════════════════════ */
+function renderTabla(lista) {
+    const tbody = document.getElementById('tbodyProductos');
+    const sinRes = document.getElementById('sinResultados');
+    tbody.innerHTML = '';
+
+    if (!lista.length) {
+        sinRes.classList.remove('d-none');
+        return;
+    }
+    sinRes.classList.add('d-none');
+
+    lista.forEach(p => {
+        const stockClass = p.stock < 10 ? 'stock-danger' : p.stock < 30 ? 'stock-warn' : 'stock-ok';
+        const stockBadge = `<span class="badge rounded-pill px-2 py-1 fw-bold font-monospace ${stockClass}">${p.stock}</span>`;
+        tbody.innerHTML += `
+        <tr id="row-${p.id}">
+            <td class="font-monospace text-muted small">
+                <i class="fa-solid fa-qrcode me-1 text-success"></i>${p.codigo}
+            </td>
+            <td>
+                <div class="fw-bold small">${p.nombre}</div>
+                ${p.desc ? `<div class="text-muted" style="font-size:11px;">${p.desc}</div>` : ''}
+            </td>
+            <td><span class="badge bg-success bg-opacity-10 text-success rounded-pill px-2 py-1 fw-semibold"
+                      style="font-size:11px;">${p.categoria}</span></td>
+            <td class="fw-semibold">S/ ${p.precio.toFixed(2)}</td>
+            <td class="text-center">${stockBadge}</td>
+            <td class="text-center">
+                <button class="btn btn-sm btn-link text-primary p-1" title="Editar" onclick="abrirEditar(${p.id})">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+                <button class="btn btn-sm btn-link text-danger p-1" title="Eliminar" onclick="abrirEliminar(${p.id})">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </td>
+        </tr>`;
+    });
+}
+
+function actualizarStats() {
+    document.getElementById('statTotal').textContent = productos.length;
+    const valor = productos.reduce((sum, p) => sum + p.precio * p.stock, 0);
+    document.getElementById('statValor').textContent = 'S/ ' + valor.toLocaleString('es-PE', {minimumFractionDigits:2, maximumFractionDigits:2});
+    document.getElementById('statBajoStock').textContent = productos.filter(p => p.stock < 30).length;
+}
+
+function actualizarFiltrosTabs() {
+    const cats = [...new Set(productos.map(p => p.categoria))].sort();
+    const cont  = document.getElementById('filtrosTabs');
+    cont.innerHTML = `<button class="filter-tab ${categoriaActiva===''?'active':''}" onclick="filtrarCategoria(this,'')">Todos</button>`;
+    cats.forEach(c => {
+        const act = categoriaActiva === c ? 'active' : '';
+        cont.innerHTML += `<button class="filter-tab ${act}" onclick="filtrarCategoria(this,'${c}')">${c}</button>`;
+    });
+}
+
+function filtrarTabla() {
+    const q   = document.getElementById('searchInput').value.toLowerCase();
+    const cat = categoriaActiva;
+    let lista = productos.filter(p => {
+        const matchCat = cat === '' || p.categoria === cat;
+        const matchQ   = !q || p.nombre.toLowerCase().includes(q) ||
+                               p.codigo.toLowerCase().includes(q) ||
+                               p.categoria.toLowerCase().includes(q);
+        return matchCat && matchQ;
+    });
+    renderTabla(lista);
+}
+
+function filtrarCategoria(btn, cat) {
+    categoriaActiva = cat;
+    document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    filtrarTabla();
+}
+
+function refrescarTodo() {
+    actualizarStats();
+    actualizarFiltrosTabs();
+    filtrarTabla();
+}
+
+/* ═══════════════════════════════════════════════════
+   RF36 – Registrar nuevo producto
+═══════════════════════════════════════════════════ */
+function abrirModalNuevo() {
+    modoEdicion = false;
+    document.getElementById('modalProductoTitulo').innerHTML =
+        '<i class="fa-solid fa-plus text-success"></i> Nuevo producto';
+    document.getElementById('btnGuardarTxt').textContent = 'Registrar';
+    ['pId','pCodigo','pNombre','pPrecio','pStock','pDesc'].forEach(id => {
+        document.getElementById(id).value = '';
+    });
+    document.getElementById('pCategoria').value = '';
+    abrirModal('overlayProducto');
+}
+
+/* RF36 – Editar producto */
+function abrirEditar(id) {
+    modoEdicion = true;
+    const p = productos.find(x => x.id === id);
+    document.getElementById('modalProductoTitulo').innerHTML =
+        '<i class="fa-solid fa-pen text-primary"></i> Editar producto';
+    document.getElementById('btnGuardarTxt').textContent = 'Guardar cambios';
+    document.getElementById('pId').value        = id;
+    document.getElementById('pCodigo').value    = p.codigo;
+    document.getElementById('pNombre').value    = p.nombre;
+    document.getElementById('pCategoria').value = p.categoria;
+    document.getElementById('pPrecio').value    = p.precio;
+    document.getElementById('pStock').value     = p.stock;
+    document.getElementById('pDesc').value      = p.desc || '';
+    abrirModal('overlayProducto');
+}
+
+function guardarProducto() {
+    const codigo    = document.getElementById('pCodigo').value.trim();
+    const nombre    = document.getElementById('pNombre').value.trim();
+    const categoria = document.getElementById('pCategoria').value;
+    const precio    = parseFloat(document.getElementById('pPrecio').value);
+    const stock     = parseInt(document.getElementById('pStock').value);
+    const desc      = document.getElementById('pDesc').value.trim();
+
+    if (!codigo || !nombre || !categoria || isNaN(precio) || isNaN(stock)) {
+        mostrarToast('Completa todos los campos obligatorios.', 'danger');
+        return;
+    }
+
+    if (modoEdicion) {
+        const id = parseInt(document.getElementById('pId').value);
+        const p  = productos.find(x => x.id === id);
+        p.codigo = codigo; p.nombre = nombre; p.categoria = categoria;
+        p.precio = precio; p.stock = stock; p.desc = desc;
+        mostrarToast('Producto actualizado y sincronizado con Ventas.');
+    } else {
+        // Verificar código duplicado
+        if (productos.some(x => x.codigo === codigo)) {
+            mostrarToast('Ya existe un producto con ese código QR.', 'danger');
+            return;
+        }
+        productos.push({ id: nextId++, codigo, nombre, categoria, precio, stock, desc });
+        mostrarToast('Producto registrado y sincronizado con Ventas.');
+    }
+
+    sincronizarVentas(modoEdicion ? 'actualizar' : 'crear');
+    cerrarModal('overlayProducto');
+    refrescarTodo();
+}
+
+/* RF36 – Eliminar producto */
+function abrirEliminar(id) {
+    idEliminar = id;
+    const p = productos.find(x => x.id === id);
+    document.getElementById('delNombreP').textContent = p.nombre;
+    abrirModal('overlayEliminar');
+}
+
+function confirmarEliminar() {
+    productos = productos.filter(x => x.id !== idEliminar);
+    sincronizarVentas('eliminar');
+    cerrarModal('overlayEliminar');
+    refrescarTodo();
+    mostrarToast('Producto eliminado y sincronizado.', 'danger');
+}
+
+/* ═══════════════════════════════════════════════════
+   RF36 – Escáner QR con html5-qrcode
+═══════════════════════════════════════════════════ */
+function abrirQR(desdeModal = false) {
+    qrDesdeModal = desdeModal;
+    document.getElementById('qrResultBox').classList.remove('show');
+    document.getElementById('btnUsarQR').classList.add('d-none');
+    document.getElementById('qrResultText').textContent = '';
+    abrirModal('overlayQR');
+
+    setTimeout(() => {
+        if (qrScanner) { try { qrScanner.stop(); } catch(e){} }
+
+        qrScanner = new Html5Qrcode('qrReader');
+        qrScanner.start(
+            { facingMode: 'environment' },
+            { fps: 10, qrbox: { width: 220, height: 220 } },
+            codigoQRDetectado,
+            () => {}
+        ).catch(err => {
+            document.getElementById('qrReader').innerHTML =
+                `<div class="text-center p-4 text-muted">
+                    <i class="fa-solid fa-camera-slash fs-2 d-block mb-2"></i>
+                    No se pudo acceder a la cámara.<br>
+                    <small>Asegúrate de dar permiso en tu navegador.</small>
+                </div>`;
+            mostrarToast('No se pudo acceder a la cámara.', 'danger');
+        });
+    }, 300);
+}
+
+function abrirQREnModal() {
+    abrirQR(true);
+}
+
+function codigoQRDetectado(decodedText) {
+    document.getElementById('qrResultText').textContent  = decodedText;
+    document.getElementById('qrResultBox').classList.add('show');
+    document.getElementById('btnUsarQR').classList.remove('d-none');
+
+    // Detener cámara tras lectura
+    if (qrScanner) {
+        try { qrScanner.stop(); } catch(e) {}
+        qrScanner = null;
+    }
+    mostrarToast('Código QR leído correctamente.', 'info');
+}
+
+function usarCodigoQR() {
+    const codigo = document.getElementById('qrResultText').textContent;
+    cerrarQR();
+
+    if (qrDesdeModal) {
+        // Llenar el campo código en el formulario
+        document.getElementById('pCodigo').value = codigo;
+        return;
+    }
+
+    // Buscar si ya existe el producto
+    const prod = productos.find(p => p.codigo === codigo);
+    if (prod) {
+        abrirEditar(prod.id);
+        mostrarToast(`Producto encontrado: ${prod.nombre}`, 'info');
+    } else {
+        abrirModalNuevo();
+        document.getElementById('pCodigo').value = codigo;
+        mostrarToast('Código nuevo. Completa los datos del producto.', 'info');
+    }
+}
+
+function cerrarQR() {
+    if (qrScanner) {
+        try { qrScanner.stop(); } catch(e) {}
+        qrScanner = null;
+    }
+    document.getElementById('qrReader').innerHTML = '';
+    cerrarModal('overlayQR');
+}
+
+/* ─── Inicializar ─── */
+refrescarTodo();
+</script>
+
 </body>
 </html>

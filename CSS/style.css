@@ -152,7 +152,8 @@ PRODUCTOS
     -webkit-line-clamp: 3;
     line-clamp: 3;
     overflow: hidden;
-    height: 54px;
+    min-height: 54px;   /* ← cambia height por min-height */
+    height: auto;       /* ← agrega esto */
 }
 
 /* ==========================================================================
